@@ -188,30 +188,25 @@ const found = binarySearch(arrSorted, 0, arrSorted.length - 1, 2);
 console.log(found);
 
 //Find the largest number:
-
-const getLargestNumber = (arr) => {
-  let largestNumber = arr[0];
+const largestNumer = (arr) => {
+  let largest = arr[0];
 
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i] > largestNumber) {
-      largestNumber = arr[i];
+    if (arr[i] > largest) {
+      largest = arr[i];
     }
   }
-  return largestNumber;
+  return largest;
 };
 
-const array1 = [34, 67, 99, 22, 1, 3];
-console.log(getLargestNumber(array1));
-
 //Find the second largest number in an array:
-
-const getSecondLargest = (arr) => {
-  let largestNumber = arr[0];
+const secondLargestNumer = (arr) => {
+  let largest = arr[0];
   let secondLargest = arr[0];
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i] > largestNumber) {
-      secondLargest = largestNumber;
-      largestNumber = arr[i];
+    if (arr[i] > largest) {
+      secondLargest = largest;
+      largest = arr[i];
     } else if (arr[i] > secondLargest) {
       secondLargest = arr[i];
     }
@@ -219,4 +214,117 @@ const getSecondLargest = (arr) => {
   return secondLargest;
 };
 
-console.log(getSecondLargest(array1));
+const array1 = [22, 56, 99, 21, 200, 221, 97];
+console.log(largestNumer(array1), secondLargestNumer(array1));
+
+//Find the prime number in an array:
+
+const primeNumber = (num) => {
+  for (let i = 2; i < num; i++) {
+    if (num % i === 0) {
+      return false;
+    }
+  }
+  return true;
+};
+console.log(primeNumber(99));
+
+//Find the maximum product subarray:
+
+const maxProduct = (arr) => {
+  let result = arr[0];
+  for (let i = 0; i < arr.length; i++) {
+    let multi = arr[i];
+    for (j = i; j < i + 1; j++) {
+      result = Math.max(result, multi);
+      multi *= arr[j];
+    }
+    result = Math.max(result, multi);
+  }
+  return result;
+};
+
+const arr3 = [1, -2, -3, 0, 7, -8, -2];
+console.log(maxProduct(arr3));
+
+//matrice multiplication:
+function multiplyMatrices(matrixA, matrixB) {
+  const rowsA = matrixA.length;
+  const colsA = matrixA[0].length;
+  const rowsB = matrixB.length;
+  const colsB = matrixB[0].length;
+
+  // Check if multiplication is possible
+  if (colsA !== rowsB) {
+    throw new Error(
+      "Number of columns in the first matrix must be equal to the number of rows in the second matrix."
+    );
+  }
+
+  // Initialize the result matrix with zeros
+  const result = Array.from({ length: rowsA }, () => Array(colsB).fill(0));
+
+  // Perform the multiplication
+  for (let i = 0; i < rowsA; i++) {
+    for (let j = 0; j < colsB; j++) {
+      for (let k = 0; k < colsA; k++) {
+        result[i][j] += matrixA[i][k] * matrixB[k][j];
+      }
+    }
+  }
+
+  return result;
+}
+
+// Example usage:
+const matrixA = [
+  [1, 2],
+  [3, 4],
+  [5, 6],
+];
+
+const matrixB = [
+  [7, 8, 9],
+  [10, 11, 12],
+];
+
+const result = multiplyMatrices(matrixA, matrixB);
+console.log(result);
+
+function addMatrices(mat1, mat2) {
+  const rows = mat1.length;
+  const cols = mat1[0].length;
+
+  // Check if matrices have the same dimensions
+  if (rows !== mat2.length || cols !== mat2[0].length) {
+    throw new Error("Matrices must have the same dimensions");
+  }
+
+  // Initialize the result matrix
+  const result = Array.from({ length: rows }, () => Array(cols).fill(0));
+
+  // Add corresponding elements
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      result[i][j] = mat1[i][j] + mat2[i][j];
+    }
+  }
+
+  return result;
+}
+
+// Example usage
+const mat1 = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+
+const mat2 = [
+  [9, 8, 7],
+  [6, 5, 4],
+  [3, 2, 1],
+];
+
+const sum = addMatrices(mat1, mat2);
+console.log(sum);
